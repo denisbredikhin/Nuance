@@ -37,13 +37,13 @@ class Program
 
         Console.WriteLine();
         Console.WriteLine("Actions to do: ");
-        foreach (var g in actions.GroupBy(a => a.Item1, a => a.Item2).OrderBy(g => g.Key==null ? "aaa" : g.Key.PackageName)) {
-            if (g.Key == null)
+        foreach (var g in actions.GroupBy(a => a.Item1?.PackageName, a => a.Item2).OrderBy(g => g.Key)) {
+            if (g.Key==null)
                 Console.WriteLine("Update the following dependencies in your solution:");
             else 
-                Console.WriteLine($"Contact author of package {g.Key.PackageName} and ask him to update the following dependencies:");
-            foreach (var dep in g)
-                Console.WriteLine($"  - {dep.PackageName} to version {dep.BestUpdateCandidate.Identity.Version}");
+                Console.WriteLine($"Contact author of package {g.Key} and ask him to update the following dependencies:");
+            foreach (var dep in g.AsEnumerable().GroupBy(dep => dep.PackageName))
+                Console.WriteLine($"  - {dep.Key} to version {dep.First().PackageVersion}");
         }
 
     }
