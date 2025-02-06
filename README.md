@@ -39,6 +39,21 @@ It is responsible for the following vulnerabilities:
 - Suggests package updates to resolve known vulnerabilities.
 - Analyzes both direct and transitive dependencies.
 
+## How is Nuance better than `dotnet list package --vulnerable`?
+
+While `dotnet list package --vulnerable` provides a list of vulnerable dependencies, **Nuance** offers several key advantages:
+
+1. **Consolidated Dependency Analysis:**
+   - `dotnet list package --vulnerable` generates reports separately for each project in a solution. This can lead to a lot of redundant information if multiple projects share dependencies, making it harder to analyze the real impact.
+   - **Nuance** consolidates dependencies across all projects, reducing noise and making it easier to see which vulnerabilities actually need attention.
+
+2. **Actionable Recommendations:**
+   - `dotnet list package --vulnerable` can list either only direct dependencies or a combined list of direct and transitive dependencies. However, it does not provide guidance on what to do next.
+   - **Nuance** analyzes vulnerabilities at every dependency level:
+     - If there are known fixes available, it suggests the correct versions to update to.
+     - If no fixes are available, it advises which upstream dependency maintainers should be contacted to request an update, helping developers take the necessary steps to resolve security issues proactively.
+
+
 ## Requirements
 
 - .NET 8 projects (other versions are not currently supported).
@@ -70,4 +85,3 @@ Use at your own risk. The authors are not responsible for any issues arising fro
 ---
 
 For more information, visit the GitHub repository.
-
