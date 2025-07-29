@@ -222,13 +222,15 @@ namespace Nuance
             // filter the targets to the set of targets that the user has specified
             if (userInputFrameworks?.Count > 0)
             {
+                if (userInputFrameworks.Contains(".NETStandard,Version=v2.0") && !userInputFrameworks.Contains("netstandard2.0"))
+                    userInputFrameworks.Add("netstandard2.0");
                 targetAliases = targetAliases.Where(f => userInputFrameworks.Contains(f)).ToList();
             }
 
             // we need to match top-level project references to their target library entries using their paths,
             // so we will store all project reference paths in a dictionary here
             var projectLibraries = assetsFile.Libraries.Where(l => l.Type == "project");
-            var projectLibraryPathToName = new Dictionary<string, string>(projectLibraries.Count());
+            var projectLibraryPathToName = new Dictionary<string, string>(projectLibraries.Count(), StringComparer.OrdinalIgnoreCase);
             var projectDirectoryPath = Path.GetDirectoryName(assetsFile.PackageSpec.FilePath);
 
             if (projectDirectoryPath != null)

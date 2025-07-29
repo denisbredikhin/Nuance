@@ -186,10 +186,15 @@ namespace Nuance
                                 assetsFile,
                                 library.Name,
                                 [ target.Name ]);
+                            List<DependencyNode>? dependencyGraph = null;
+                            if (!dependencyGraphPerFramework.ContainsKey(target.Name) && target.Name == ".NETStandard,Version=v2.0")
+                                dependencyGraph = dependencyGraphPerFramework["netstandard2.0"];
+                            else
+                                dependencyGraph = dependencyGraphPerFramework[target.Name];
                             var rootNode = new DependencyNode(project.GetPropertyValue("MSBuildProjectName"), NuGetVersion.Parse(project.GetPropertyValue("Version")))
                             {
                                 Type = "project",
-                                Children = [.. dependencyGraphPerFramework[target.Name]]
+                                Children = [.. dependencyGraph]
                             };
                             installedPackage.DependencyPath = [ rootNode ];
                             transitivePackages.Add(installedPackage);

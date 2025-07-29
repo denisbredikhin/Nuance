@@ -43,7 +43,7 @@ class Program
             else 
                 Console.WriteLine($"Contact author of package {g.Key} and ask him to update the following dependencies:");
             foreach (var dep in g.AsEnumerable().GroupBy(dep => dep.PackageName))
-                Console.WriteLine($"  - {dep.Key} to version {dep.First().PackageVersion}");
+                Console.WriteLine($"  - {dep.Key} to version {dep.First().BestUpdateCandidate.Identity.Version}");
         }
 
     }
