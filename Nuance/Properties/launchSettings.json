@@ -2,7 +2,7 @@
   "profiles": {
     "Nuance": {
       "commandName": "Project",
-      "commandLineArgs": "\"C:\\Users\\U07366\\source\\repos\\Fwk - IA - Integration Framework\\AG.IA.Framework.sln\""
+      "commandLineArgs": "\"C:\\Users\\U07366\\source\\repos\\Fwk - IA - Integration Framework\\AG.IA.Framework.slnx\""
     }
   }
 }

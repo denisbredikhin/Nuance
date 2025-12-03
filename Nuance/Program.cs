@@ -9,6 +9,11 @@ class Program
     {
         VulnerabilityAnalyzingService.Initialize();
 
+        if (args.Length == 0)
+        {
+            // Running under benchmark or no input provided; exit gracefully.
+            return;
+        }
 
         var result = await VulnerabilityAnalyzingService.GetVulnerabilityAnalysis(args[0]);
 
@@ -111,5 +116,4 @@ class Program
             }
         }
     }
-
 }
